@@ -1,0 +1,20 @@
+{
+    "logs": [
+        {
+            "outputFile": "pt.smsapi.gateway.app-mergeDebugResources-2:/values-hdpi-v4/values-hdpi-v4.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Utilizador\\.gradle\\caches\\8.13\\transforms\\91aa2e4b7fdce3f991e12052ac65e473\\transformed\\appcompat-1.7.0\\res\\values-hdpi-v4\\values-hdpi-v4.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "6",
+                        "endColumns": "13",
+                        "endOffsets": "327"
+                    }
+                }
+            ]
+        }
+    ]
+}

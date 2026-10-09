@@ -1,0 +1,36 @@
+# SMSAPI Gateway
+Options -Indexes
+DirectoryIndex index.php
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Nunca servir a base de dados SQLite directamente.
+    RewriteRule ^public/.*\.(sqlite|sqlite3|db|log|ini)$ - [F,L]
+
+    # Raiz do gateway -> painel de administracao.
+    RewriteRule ^$ admin/ [L]
+</IfModule>
+
+# O config.php devolve um array em PHP, mas se alguem o pedir directamente o
+# servidor mostraria o codigo-fonte -- e com ele a chave da API. Bloqueado.
+#
+# NOTA: install.php NAO entra aqui. Este ficheiro tem de poder ser executado
+# durante a instalacao. Depois de instalada, apague-o (o painel da-installacao
+# mostra o endereco exacto) ou o proprio install.php recusa-se a correr
+# porque config.php ja existe.
+<FilesMatch "^(config\.php(\.(bak|old|orig|tmp))?|\.htaccess|.*\.(jks|keystore|p12|pem))$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "no-referrer"
+</IfModule>

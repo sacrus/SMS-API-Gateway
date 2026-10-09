@@ -1,0 +1,20 @@
+# SMSAPI Gateway - unico ficheiro publico desta pasta.
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+</IfModule>
+
+<IfModule !mod_rewrite.c>
+    Options -Indexes
+</IfModule>
+
+<FilesMatch "\.(sqlite|sqlite3|db|log|md|json|yml|yaml|ini|env|htaccess)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>

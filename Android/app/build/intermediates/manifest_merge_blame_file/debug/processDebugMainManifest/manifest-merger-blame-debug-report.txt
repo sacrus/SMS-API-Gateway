@@ -1,0 +1,233 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="pt.smsapi.gateway.debug"
+4    android:versionCode="1"
+5    android:versionName="1.0.0-debug" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="24"
+9        android:targetSdkVersion="36" />
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:5:5-67
+11-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:5:22-64
+12    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+12-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:6:5-79
+12-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:6:22-76
+13    <uses-permission android:name="android.permission.SEND_SMS" />
+13-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:7:5-67
+13-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:7:22-64
+14    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+14-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:8:5-75
+14-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:8:22-72
+15    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+15-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:9:5-77
+15-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:9:22-74
+16    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+16-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:10:5-77
+16-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:10:22-74
+17    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+17-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:11:5-89
+17-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:11:22-86
+18    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+18-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:12:5-81
+18-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:12:22-78
+19    <uses-permission android:name="android.permission.WAKE_LOCK" />
+19-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:13:5-68
+19-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:13:22-65
+20    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+20-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:14:5-15:38
+20-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:14:22-92
+21
+22    <uses-feature
+22-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:17:5-19:36
+23        android:name="android.hardware.telephony"
+23-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:18:9-50
+24        android:required="false" />
+24-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:19:9-33
+25
+26    <permission
+26-->[androidx.core:core:1.13.1] C:\Users\Utilizador\.gradle\caches\8.13\transforms\4d8ce784c217bdb84fa017b92916b262\transformed\core-1.13.1\AndroidManifest.xml:22:5-24:47
+27        android:name="pt.smsapi.gateway.debug.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+27-->[androidx.core:core:1.13.1] C:\Users\Utilizador\.gradle\caches\8.13\transforms\4d8ce784c217bdb84fa017b92916b262\transformed\core-1.13.1\AndroidManifest.xml:23:9-81
+28        android:protectionLevel="signature" />
+28-->[androidx.core:core:1.13.1] C:\Users\Utilizador\.gradle\caches\8.13\transforms\4d8ce784c217bdb84fa017b92916b262\transformed\core-1.13.1\AndroidManifest.xml:24:9-44
+29
+30    <uses-permission android:name="pt.smsapi.gateway.debug.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+30-->[androidx.core:core:1.13.1] C:\Users\Utilizador\.gradle\caches\8.13\transforms\4d8ce784c217bdb84fa017b92916b262\transformed\core-1.13.1\AndroidManifest.xml:26:5-97
+30-->[androidx.core:core:1.13.1] C:\Users\Utilizador\.gradle\caches\8.13\transforms\4d8ce784c217bdb84fa017b92916b262\transformed\core-1.13.1\AndroidManifest.xml:26:22-94
+31
+32    <application
+32-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:21:5-75:19
+33        android:name="pt.smsapi.gateway.GatewayApp"
+33-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:22:9-35
+34        android:allowBackup="false"
+34-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:23:9-36
+35        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+35-->[androidx.core:core:1.13.1] C:\Users\Utilizador\.gradle\caches\8.13\transforms\4d8ce784c217bdb84fa017b92916b262\transformed\core-1.13.1\AndroidManifest.xml:28:18-86
+36        android:dataExtractionRules="@xml/data_extraction_rules"
+36-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:24:9-65
+37        android:debuggable="true"
+38        android:extractNativeLibs="false"
+39        android:fullBackupContent="@xml/backup_rules"
+39-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:25:9-54
+40        android:icon="@mipmap/ic_launcher"
+40-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:26:9-43
+41        android:label="@string/app_name"
+41-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:27:9-41
+42        android:localeConfig="@xml/locales_config"
+42-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:28:9-51
+43        android:roundIcon="@mipmap/ic_launcher_round"
+43-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:29:9-54
+44        android:supportsRtl="true"
+44-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:30:9-35
+45        android:theme="@style/Theme.SmsApi" >
+45-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:31:9-44
+46        <activity
+46-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:33:9-42:20
+47            android:name="pt.smsapi.gateway.ui.MainActivity"
+47-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:34:13-44
+48            android:exported="true"
+48-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:35:13-36
+49            android:launchMode="singleTop"
+49-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:36:13-43
+50            android:windowSoftInputMode="adjustResize" >
+50-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:37:13-55
+51            <intent-filter>
+51-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:38:13-41:29
+52                <action android:name="android.intent.action.MAIN" />
+52-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:39:17-69
+52-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:39:25-66
+53
+54                <category android:name="android.intent.category.LAUNCHER" />
+54-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:40:17-77
+54-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:40:27-74
+55            </intent-filter>
+56        </activity>
+57
+58        <service
+58-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:44:9-53:19
+59            android:name="pt.smsapi.gateway.service.SmsGatewayService"
+59-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:45:13-54
+60            android:directBootAware="false"
+60-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:46:13-44
+61            android:exported="false"
+61-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:47:13-37
+62            android:foregroundServiceType="specialUse"
+62-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:48:13-55
+63            android:stopWithTask="false" >
+63-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:49:13-41
+64            <property
+64-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:50:13-52:172
+65                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+65-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:51:17-76
+66                android:value="Polling a self-hosted HTTP endpoint on a user-configurable interval in order to dispatch queued SMS messages handed over by the website." />
+66-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:52:17-169
+67        </service>
+68
+69        <receiver
+69-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:55:9-61:20
+70            android:name="pt.smsapi.gateway.sms.SmsResultReceiver"
+70-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:56:13-50
+71            android:exported="false" >
+71-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:57:13-37
+72            <intent-filter>
+72-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:58:13-60:29
+73                <action android:name="pt.smsapi.gateway.SMS_SENT" />
+73-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:59:17-69
+73-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:59:25-66
+74            </intent-filter>
+75        </receiver>
+76        <receiver
+76-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:63:9-73:20
+77            android:name="pt.smsapi.gateway.service.BootReceiver"
+77-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:64:13-49
+78            android:enabled="true"
+78-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:65:13-35
+79            android:exported="true" >
+79-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:66:13-36
+80            <intent-filter>
+80-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:67:13-72:29
+81                <action android:name="android.intent.action.BOOT_COMPLETED" />
+81-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:68:17-79
+81-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:68:25-76
+82                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+82-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:69:17-84
+82-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:69:25-81
+83                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+83-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:70:17-82
+83-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:70:25-79
+84                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
+84-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:71:17-82
+84-->C:\Projetos\Android\SMSAPI\android\app\src\main\AndroidManifest.xml:71:25-79
+85            </intent-filter>
+86        </receiver>
+87
+88        <provider
+88-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Utilizador\.gradle\caches\8.13\transforms\c1f5782958bbc70059432f9ecfe45647\transformed\emoji2-1.3.0\AndroidManifest.xml:24:9-32:20
+89            android:name="androidx.startup.InitializationProvider"
+89-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Utilizador\.gradle\caches\8.13\transforms\c1f5782958bbc70059432f9ecfe45647\transformed\emoji2-1.3.0\AndroidManifest.xml:25:13-67
+90            android:authorities="pt.smsapi.gateway.debug.androidx-startup"
+90-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Utilizador\.gradle\caches\8.13\transforms\c1f5782958bbc70059432f9ecfe45647\transformed\emoji2-1.3.0\AndroidManifest.xml:26:13-68
+91            android:exported="false" >
+91-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Utilizador\.gradle\caches\8.13\transforms\c1f5782958bbc70059432f9ecfe45647\transformed\emoji2-1.3.0\AndroidManifest.xml:27:13-37
+92            <meta-data
+92-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Utilizador\.gradle\caches\8.13\transforms\c1f5782958bbc70059432f9ecfe45647\transformed\emoji2-1.3.0\AndroidManifest.xml:29:13-31:52
+93                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+93-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Utilizador\.gradle\caches\8.13\transforms\c1f5782958bbc70059432f9ecfe45647\transformed\emoji2-1.3.0\AndroidManifest.xml:30:17-75
+94                android:value="androidx.startup" />
+94-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Utilizador\.gradle\caches\8.13\transforms\c1f5782958bbc70059432f9ecfe45647\transformed\emoji2-1.3.0\AndroidManifest.xml:31:17-49
+95            <meta-data
+95-->[androidx.lifecycle:lifecycle-process:2.8.7] C:\Users\Utilizador\.gradle\caches\8.13\transforms\ecf2a3ee7d6c25e995cda53332f0f334\transformed\lifecycle-process-2.8.7\AndroidManifest.xml:29:13-31:52
+96                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+96-->[androidx.lifecycle:lifecycle-process:2.8.7] C:\Users\Utilizador\.gradle\caches\8.13\transforms\ecf2a3ee7d6c25e995cda53332f0f334\transformed\lifecycle-process-2.8.7\AndroidManifest.xml:30:17-78
+97                android:value="androidx.startup" />
+97-->[androidx.lifecycle:lifecycle-process:2.8.7] C:\Users\Utilizador\.gradle\caches\8.13\transforms\ecf2a3ee7d6c25e995cda53332f0f334\transformed\lifecycle-process-2.8.7\AndroidManifest.xml:31:17-49
+98            <meta-data
+98-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Utilizador\.gradle\caches\8.13\transforms\e4f98b923a6ce984780f5edd5ffcbd16\transformed\profileinstaller-1.3.1\AndroidManifest.xml:29:13-31:52
+99                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+99-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Utilizador\.gradle\caches\8.13\transforms\e4f98b923a6ce984780f5edd5ffcbd16\transformed\profileinstaller-1.3.1\AndroidManifest.xml:30:17-85
+100                android:value="androidx.startup" />
+100-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Utilizador\.gradle\caches\8.13\transforms\e4f98b923a6ce984780f5edd5ffcbd16\transformed\profileinstaller-1.3.1\AndroidManifest.xml:31:17-49
+101        </provider>
+102
+103        <receiver
+103-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Utilizador\.gradle\caches\8.13\transforms\e4f98b923a6ce984780f5edd5ffcbd16\transformed\profileinstaller-1.3.1\AndroidManifest.xml:34:9-52:20
+104            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+104-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Utilizador\.gradle\caches\8.13\transforms\e4f98b923a6ce984780f5edd5ffcbd16\transformed\profileinstaller-1.3.1\AndroidManifest.xml:35:13-76
+105            android:directBootAware="false"
+105-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Utilizador\.gradle\caches\8.13\transforms\e4f98b923a6ce984780f5edd5ffcbd16\transformed\profileinstaller-1.3.1\AndroidManifest.xml:36:13-44
+106            android:enabled="true"
+106-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Utilizador\.gradle\caches\8.13\transforms\e4f98b923a6ce984780f5edd5ffcbd16\transformed\profileinstaller-1.3.1\AndroidManifest.xml:37:13-35
+107            android:exported="true"
+107-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Utilizador\.gradle\caches\8.13\transforms\e4f98b923a6ce984780f5edd5ffcbd16\transformed\profileinstaller-1.3.1\AndroidManifest.xml:38:13-36
+108            android:permission="android.permission.DUMP" >
+108-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Utilizador\.gradle\caches\8.13\transforms\e4f98b923a6ce984780f5edd5ffcbd16\transformed\profileinstaller-1.3.1\AndroidManifest.xml:39:13-57
+109            <intent-filter>
+109-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Utilizador\.gradle\caches\8.13\transforms\e4f98b923a6ce984780f5edd5ffcbd16\transformed\profileinstaller-1.3.1\AndroidManifest.xml:40:13-42:29
+110                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+110-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Utilizador\.gradle\caches\8.13\transforms\e4f98b923a6ce984780f5edd5ffcbd16\transformed\profileinstaller-1.3.1\AndroidManifest.xml:41:17-91
+110-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Utilizador\.gradle\caches\8.13\transforms\e4f98b923a6ce984780f5edd5ffcbd16\transformed\profileinstaller-1.3.1\AndroidManifest.xml:41:25-88
+111            </intent-filter>
+112            <intent-filter>
+112-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Utilizador\.gradle\caches\8.13\transforms\e4f98b923a6ce984780f5edd5ffcbd16\transformed\profileinstaller-1.3.1\AndroidManifest.xml:43:13-45:29
+113                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+113-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Utilizador\.gradle\caches\8.13\transforms\e4f98b923a6ce984780f5edd5ffcbd16\transformed\profileinstaller-1.3.1\AndroidManifest.xml:44:17-85
+113-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Utilizador\.gradle\caches\8.13\transforms\e4f98b923a6ce984780f5edd5ffcbd16\transformed\profileinstaller-1.3.1\AndroidManifest.xml:44:25-82
+114            </intent-filter>
+115            <intent-filter>
+115-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Utilizador\.gradle\caches\8.13\transforms\e4f98b923a6ce984780f5edd5ffcbd16\transformed\profileinstaller-1.3.1\AndroidManifest.xml:46:13-48:29
+116                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+116-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Utilizador\.gradle\caches\8.13\transforms\e4f98b923a6ce984780f5edd5ffcbd16\transformed\profileinstaller-1.3.1\AndroidManifest.xml:47:17-88
+116-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Utilizador\.gradle\caches\8.13\transforms\e4f98b923a6ce984780f5edd5ffcbd16\transformed\profileinstaller-1.3.1\AndroidManifest.xml:47:25-85
+117            </intent-filter>
+118            <intent-filter>
+118-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Utilizador\.gradle\caches\8.13\transforms\e4f98b923a6ce984780f5edd5ffcbd16\transformed\profileinstaller-1.3.1\AndroidManifest.xml:49:13-51:29
+119                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+119-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Utilizador\.gradle\caches\8.13\transforms\e4f98b923a6ce984780f5edd5ffcbd16\transformed\profileinstaller-1.3.1\AndroidManifest.xml:50:17-95
+119-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Utilizador\.gradle\caches\8.13\transforms\e4f98b923a6ce984780f5edd5ffcbd16\transformed\profileinstaller-1.3.1\AndroidManifest.xml:50:25-92
+120            </intent-filter>
+121        </receiver>
+122    </application>
+123
+124</manifest>

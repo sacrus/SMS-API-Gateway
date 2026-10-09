@@ -1,0 +1,129 @@
+<resources>
+    <string name="app_name">SMSAPI Gateway</string>
+
+    <!-- Setup -->
+    <string name="setup_title">Configuration initiale</string>
+    <string name="setup_subtitle">Renseignez les informations de votre serveur. La clé de l\'API a été définie lors de l\'installation du site.</string>
+    <string name="label_server_url">Adresse du serveur</string>
+    <string name="hint_server_url">https://exemple.com/smsapi/</string>
+    <string name="label_api_key">Clé de l\'API</string>
+    <string name="label_device_name">Nom du téléphone</string>
+    <string name="label_interval">Intervalle de vérification (secondes)</string>
+    <string name="label_max_per_poll">SMS max. par cycle</string>
+    <string name="label_sim">Carte SIM sortante</string>
+    <string name="sim_auto">Automatique (par défaut du système)</string>
+    <string name="sim_none">Aucune carte SIM active</string>
+    <string name="sim_permission_needed">Autorisez la lecture de l\'état du téléphone pour choisir la carte SIM</string>
+    <string name="sim_locked">Sélection de SIM indisponible</string>
+    <string name="label_language">Langue de l\'application</string>
+    <string name="label_language_hint">La langue est appliquée lorsque vous appuyez sur Enregistrer.</string>
+    <string name="lang_system">Automatique (langue du téléphone)</string>
+    <string name="lang_pt">Português</string>
+    <string name="lang_es">Español</string>
+    <string name="lang_en">English</string>
+    <string name="lang_fr">Français</string>
+    <string name="label_auto_start">Démarrer automatiquement à l\'allumage</string>
+    <string name="label_notify_sent">Notifier chaque SMS envoyé</string>
+    <string name="action_save">Enregistrer et enregistrer l\'appareil</string>
+    <string name="action_save_only">Enregistrer</string>
+
+    <!-- Status -->
+    <string name="status_title">État de la passerelle</string>
+    <string name="label_server">Serveur</string>
+    <string name="label_device">Téléphone</string>
+    <string name="label_token">Jeton de l\'appareil</string>
+    <string name="label_last_poll">Dernière vérification</string>
+    <string name="label_next_poll">Prochaine vérification</string>
+    <string name="label_pending">SMS en file d\'attente</string>
+    <string name="label_last_error">Dernière erreur</string>
+    <string name="state_disabled">Arrêté</string>
+    <string name="state_starting">Démarrage…</string>
+    <string name="state_idle">En attente</string>
+    <string name="state_polling">Vérification…</string>
+    <string name="state_sending">Envoi…</string>
+    <string name="state_ok">En ligne</string>
+    <string name="state_error">Erreur</string>
+    <string name="value_none">—</string>
+
+    <!-- Buttons -->
+    <string name="action_start">Démarrer</string>
+    <string name="action_stop">Arrêter</string>
+    <string name="action_sync">Synchroniser maintenant</string>
+    <string name="action_ping">Tester la connexion</string>
+    <string name="action_settings">Réglages</string>
+    <string name="action_revoke">Effacer le jeton</string>
+    <string name="action_copy">Copier</string>
+    <string name="action_copied">Copié</string>
+    <string name="action_clear_log">Effacer le journal</string>
+    <string name="action_collapse_log">Réduire ou développer le journal d\'activité</string>
+    <string name="action_expand_log">Développer le journal</string>
+    <string name="action_collapse">Réduire</string>
+
+    <!-- Log -->
+    <string name="log_title">Journal d\'activité</string>
+    <string name="log_title_count">Journal d\'activité · %1$d</string>
+    <string name="log_empty">Aucune activité enregistrée pour l\'instant.</string>
+
+    <!-- Permissions -->
+    <string name="perm_required_title">Autorisations requises</string>
+    <string name="perm_required_body">L\'application a besoin d\'une autorisation pour envoyer des SMS et pour afficher la notification permanente du service.</string>
+    <string name="perm_grant">Autoriser</string>
+    <string name="perm_phone_title">Choisir la carte SIM</string>
+    <string name="perm_phone_body">L\'application doit lire les informations des cartes SIM pour les afficher dans le sélecteur et vous laisser choisir par laquelle envoyer. Sans cette autorisation, elle continue d\'utiliser la carte SIM par défaut du système.</string>
+    <string name="perm_battery_title">Optimisation de la batterie</string>
+    <string name="perm_battery_body">Excluez cette application de l\'optimisation de la batterie afin que le service ne soit jamais suspendu.</string>
+    <string name="perm_battery_open">Ouvrir les réglages</string>
+    <string name="perm_sms_blocked_title">Envoi de SMS bloqué par le système</string>
+    <string name="perm_sms_blocked_body">Sur cette version d\'Android, le système n\'autorise l\'envoi de SMS que depuis l\'application de messagerie par défaut ou une autre application de messagerie. Ouvrez les réglages et choisissez SMSAPI Gateway comme application SMS par défaut.</string>
+    <string name="perm_sms_blocked_open">Ouvrir les réglages</string>
+
+    <!-- Toasts / dialogs -->
+    <string name="msg_saved">Réglages enregistrés.</string>
+    <string name="msg_registered">Téléphone enregistré avec succès.</string>
+    <string name="msg_token_erased">Jeton effacé. Le téléphone sera à nouveau enregistré.</string>
+    <string name="msg_invalid_url">Adresse de serveur invalide. Utilisez http:// ou https://</string>
+    <string name="msg_invalid_key">La clé de l\'API ne peut pas être vide.</string>
+    <string name="msg_invalid_interval">L\'intervalle minimum est de 15 secondes.</string>
+    <string name="confirm_revoke_title">Effacer le jeton ?</string>
+    <string name="confirm_revoke_body">Le téléphone ne sera plus associé à ce site et devra être à nouveau enregistré.</string>
+    <string name="confirm_clear_title">Effacer le journal ?</string>
+    <string name="confirm_clear_body">Toutes les entrées locales d\'activité seront effacées.</string>
+    <string name="action_cancel">Annuler</string>
+    <string name="action_confirm">Confirmer</string>
+    <string name="msg_ping_ok">Connexion au serveur confirmée.</string>
+    <string name="msg_no_internet">Pas de connexion Internet.</string>
+    <string name="msg_no_sim">Aucune carte SIM disponible : l\'envoi de SMS est impossible.</string>
+    <string name="msg_no_server_configured">API non configurée.</string>
+    <string name="msg_settings_saved">Réglages enregistrés.</string>
+    <string name="warn_insecure_url">Attention : l\'adresse utilise http:// sans TLS. Les clés et les SMS circulent sans chiffrement. Acceptable uniquement sur un réseau local ou derrière un proxy HTTPS.</string>
+    <string name="log_ping_ok">Connexion testée avec succès (%1$d SMS en file d\'attente)</string>
+    <string name="log_ping_fail">Échec du test de connexion : %1$s</string>
+    <string name="log_token_erased">Jeton effacé localement</string>
+
+    <!-- Log messages -->
+    <string name="log_registered">Téléphone enregistré sur le serveur</string>
+    <string name="log_token_rejected">Jeton refusé par le serveur — nouvel enregistrement</string>
+    <string name="log_send_timeout">Délai de réponse du modem dépassé</string>
+    <string name="log_send_ok">SMS remis au modem (%1$d partie(s) via %2$s)</string>
+    <string name="log_sim_used">SIM %1$s</string>
+    <string name="log_parts">%1$d partie(s)</string>
+    <string name="log_send_failed_unknown">Échec inconnu lors de l\'envoi</string>
+
+    <!-- Notification -->
+    <string name="notif_channel_status">État de la passerelle</string>
+    <string name="notif_channel_status_desc">Notification permanente indiquant l\'état de la vérification.</string>
+    <string name="notif_channel_alert">Alertes de la passerelle</string>
+    <string name="notif_channel_alert_desc">Avertissements d\'erreur et notifications d\'envoi.</string>
+    <string name="notif_title">Passerelle SMS active</string>
+    <string name="notif_text_ready">En attente de nouveaux messages</string>
+    <string name="notif_text_polling">Vérification du serveur…</string>
+    <string name="notif_text_error">Erreur : %1$s</string>
+    <string name="notif_sent">SMS envoyé au %1$s</string>
+    <string name="notif_failed">Échec de l\'envoi du SMS : %1$s</string>
+
+    <!-- Log levels -->
+    <string name="lvl_info">INFO</string>
+    <string name="lvl_warn">AVERT.</string>
+    <string name="lvl_error">ERREUR</string>
+    <string name="lvl_send">ENVOI</string>
+</resources>

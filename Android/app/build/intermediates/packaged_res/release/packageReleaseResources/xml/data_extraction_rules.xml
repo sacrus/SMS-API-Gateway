@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-extraction-rules>
+    <cloud-backup>
+        <exclude domain="sharedpref" path="smsapi_secure.xml" />
+        <exclude domain="database" path="smsapi_local.db" />
+    </cloud-backup>
+    <device-transfer>
+        <exclude domain="sharedpref" path="smsapi_secure.xml" />
+        <exclude domain="database" path="smsapi_local.db" />
+    </device-transfer>
+</data-extraction-rules>

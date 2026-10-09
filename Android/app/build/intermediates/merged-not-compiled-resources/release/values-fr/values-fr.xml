@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2" xmlns:ns2="http://schemas.android.com/tools">
+    <plurals name="mtrl_badge_content_description">
+    <item quantity="one">%d nouvelle notification</item>
+    <item quantity="other">%d nouvelles notifications</item>
+  </plurals>
+    <string msgid="5976598919945601918" name="abc_action_bar_home_description">"Revenir à l\'accueil"</string>
+    <string msgid="8388173803310557296" name="abc_action_bar_up_description">"Revenir en haut de la page"</string>
+    <string msgid="3937310113216875497" name="abc_action_menu_overflow_description">"Autres options"</string>
+    <string msgid="4692188335987374352" name="abc_action_mode_done">"OK"</string>
+    <string msgid="1189761859438369441" name="abc_activity_chooser_view_see_all">"Tout afficher"</string>
+    <string msgid="2165779757652331008" name="abc_activitychooserview_choose_application">"Sélectionner une application"</string>
+    <string msgid="4215997306490295099" name="abc_capital_off">"NON"</string>
+    <string msgid="884982626291842264" name="abc_capital_on">"OUI"</string>
+    <string msgid="8833365367933412986" name="abc_menu_alt_shortcut_label">"Alt+"</string>
+    <string msgid="2223301931652355242" name="abc_menu_ctrl_shortcut_label">"Ctrl+"</string>
+    <string msgid="838001238306846836" name="abc_menu_delete_shortcut_label">"supprimer"</string>
+    <string msgid="7986526966204849475" name="abc_menu_enter_shortcut_label">"entrée"</string>
+    <string msgid="375214403600139847" name="abc_menu_function_shortcut_label">"Fonction+"</string>
+    <string msgid="4192209724446364286" name="abc_menu_meta_shortcut_label">"Méta+"</string>
+    <string msgid="4741552369836443843" name="abc_menu_shift_shortcut_label">"Maj+"</string>
+    <string msgid="5473865519181928982" name="abc_menu_space_shortcut_label">"espace"</string>
+    <string msgid="6180552449598693998" name="abc_menu_sym_shortcut_label">"Sym+"</string>
+    <string msgid="5520303668377388990" name="abc_prepend_shortcut_label">"Menu+"</string>
+    <string msgid="7208076849092622260" name="abc_search_hint">"Rechercher…"</string>
+    <string msgid="3741173234950517107" name="abc_searchview_description_clear">"Effacer la requête"</string>
+    <string msgid="693312494995508443" name="abc_searchview_description_query">"Requête de recherche"</string>
+    <string msgid="3417662926640357176" name="abc_searchview_description_search">"Rechercher"</string>
+    <string msgid="1486535517437947103" name="abc_searchview_description_submit">"Envoyer la requête"</string>
+    <string msgid="2293578557972875415" name="abc_searchview_description_voice">"Recherche vocale"</string>
+    <string msgid="8875138169939072951" name="abc_shareactionprovider_share_with">"Partager avec"</string>
+    <string msgid="9055268688411532828" name="abc_shareactionprovider_share_with_application">"Partager avec <ns1:g id="APPLICATION_NAME">%s</ns1:g>"</string>
+    <string msgid="1656852541809559762" name="abc_toolbar_collapse_description">"Réduire"</string>
+    <string name="action_cancel">Annuler</string>
+    <string name="action_clear_log">Effacer le journal</string>
+    <string name="action_collapse">Réduire</string>
+    <string name="action_collapse_log">Réduire ou développer le journal d\'activité</string>
+    <string name="action_confirm">Confirmer</string>
+    <string name="action_copied">Copié</string>
+    <string name="action_copy">Copier</string>
+    <string name="action_expand_log">Développer le journal</string>
+    <string name="action_ping">Tester la connexion</string>
+    <string name="action_revoke">Effacer le jeton</string>
+    <string name="action_save">Enregistrer et enregistrer l\'appareil</string>
+    <string name="action_save_only">Enregistrer</string>
+    <string name="action_settings">Réglages</string>
+    <string name="action_start">Démarrer</string>
+    <string name="action_stop">Arrêter</string>
+    <string name="action_sync">Synchroniser maintenant</string>
+    <string name="app_name">SMSAPI Gateway</string>
+    <string name="bottomsheet_action_collapse">Réduire la bottom sheet</string>
+    <string name="bottomsheet_action_expand">Développer la bottom sheet</string>
+    <string name="bottomsheet_action_expand_halfway">Développer en entier</string>
+    <string name="bottomsheet_drag_handle_clicked">A appuyé deux fois sur la poignée de déplacement</string>
+    <string name="bottomsheet_drag_handle_content_description">Poignée de déplacement</string>
+    <string msgid="881409763997275156" name="call_notification_answer_action">"Répondre"</string>
+    <string msgid="8793775615905189152" name="call_notification_answer_video_action">"Vidéo"</string>
+    <string msgid="3229508546291798546" name="call_notification_decline_action">"Refuser"</string>
+    <string msgid="2659457946726154263" name="call_notification_hang_up_action">"Raccrocher"</string>
+    <string msgid="6107532579223922871" name="call_notification_incoming_text">"Appel entrant"</string>
+    <string msgid="8623827134497363134" name="call_notification_ongoing_text">"Appel en cours"</string>
+    <string msgid="59049573811482460" name="call_notification_screening_text">"Filtrage d\'un appel entrant"</string>
+    <string name="character_counter_content_description">Caractères saisis %1$d sur %2$d</string>
+    <string name="character_counter_overflowed_content_description">Nombre maximal de caractères dépassé : %1$d sur %2$d</string>
+    <string name="clear_text_end_icon_content_description">Effacer le texte</string>
+    <string name="confirm_clear_body">Toutes les entrées locales d\'activité seront effacées.</string>
+    <string name="confirm_clear_title">Effacer le journal ?</string>
+    <string name="confirm_revoke_body">Le téléphone ne sera plus associé à ce site et devra être à nouveau enregistré.</string>
+    <string name="confirm_revoke_title">Effacer le jeton ?</string>
+    <string name="error_a11y_label">Erreur : Non valide</string>
+    <string name="error_icon_content_description">Erreur</string>
+    <string name="exposed_dropdown_menu_content_description">Afficher le menu déroulant</string>
+    <string name="hint_server_url">https://exemple.com/smsapi/</string>
+    <string name="icon_content_description">Icône de la boîte de dialogue</string>
+    <string name="item_view_role_description">Tabulation</string>
+    <string name="label_api_key">Clé de l\'API</string>
+    <string name="label_auto_start">Démarrer automatiquement à l\'allumage</string>
+    <string name="label_device">Téléphone</string>
+    <string name="label_device_name">Nom du téléphone</string>
+    <string name="label_interval">Intervalle de vérification (secondes)</string>
+    <string name="label_language">Langue de l\'application</string>
+    <string name="label_language_hint">La langue est appliquée lorsque vous appuyez sur Enregistrer.</string>
+    <string name="label_last_error">Dernière erreur</string>
+    <string name="label_last_poll">Dernière vérification</string>
+    <string name="label_max_per_poll">SMS max. par cycle</string>
+    <string name="label_next_poll">Prochaine vérification</string>
+    <string name="label_notify_sent">Notifier chaque SMS envoyé</string>
+    <string name="label_pending">SMS en file d\'attente</string>
+    <string name="label_server">Serveur</string>
+    <string name="label_server_url">Adresse du serveur</string>
+    <string name="label_sim">Carte SIM sortante</string>
+    <string name="label_token">Jeton de l\'appareil</string>
+    <string name="lang_en">English</string>
+    <string name="lang_es">Español</string>
+    <string name="lang_fr">Français</string>
+    <string name="lang_pt">Português</string>
+    <string name="lang_system">Automatique (langue du téléphone)</string>
+    <string name="log_empty">Aucune activité enregistrée pour l\'instant.</string>
+    <string name="log_parts">%1$d partie(s)</string>
+    <string name="log_ping_fail">Échec du test de connexion : %1$s</string>
+    <string name="log_ping_ok">Connexion testée avec succès (%1$d SMS en file d\'attente)</string>
+    <string name="log_registered">Téléphone enregistré sur le serveur</string>
+    <string name="log_send_failed_unknown">Échec inconnu lors de l\'envoi</string>
+    <string name="log_send_ok">SMS remis au modem (%1$d partie(s) via %2$s)</string>
+    <string name="log_send_timeout">Délai de réponse du modem dépassé</string>
+    <string name="log_sim_used">SIM %1$s</string>
+    <string name="log_title">Journal d\'activité</string>
+    <string name="log_title_count">Journal d\'activité · %1$d</string>
+    <string name="log_token_erased">Jeton effacé localement</string>
+    <string name="log_token_rejected">Jeton refusé par le serveur — nouvel enregistrement</string>
+    <string name="lvl_error">ERREUR</string>
+    <string name="lvl_info">INFO</string>
+    <string name="lvl_send">ENVOI</string>
+    <string name="lvl_warn">AVERT.</string>
+    <string name="material_clock_toggle_content_description">Sélectionner le format AM ou PM</string>
+    <string name="material_hour_24h_suffix">%1$s heures</string>
+    <string name="material_hour_selection">Sélectionnez une heure</string>
+    <string name="material_hour_suffix">%1$s h</string>
+    <string name="material_minute_selection">Sélectionner des minutes</string>
+    <string name="material_minute_suffix">%1$s min</string>
+    <string name="material_timepicker_am">AM</string>
+    <string name="material_timepicker_clock_mode_description">Passer en mode horloge pour la saisie de l\'heure.</string>
+    <string name="material_timepicker_hour">Heure</string>
+    <string name="material_timepicker_minute">Minute</string>
+    <string name="material_timepicker_pm">PM</string>
+    <string name="material_timepicker_select_time">Sélectionner l\'heure</string>
+    <string name="material_timepicker_text_input_mode_description">Passer en mode saisie de texte pour la saisie de l\'heure.</string>
+    <string name="msg_invalid_interval">L\'intervalle minimum est de 15 secondes.</string>
+    <string name="msg_invalid_key">La clé de l\'API ne peut pas être vide.</string>
+    <string name="msg_invalid_url">Adresse de serveur invalide. Utilisez http:// ou https://</string>
+    <string name="msg_no_internet">Pas de connexion Internet.</string>
+    <string name="msg_no_server_configured">API non configurée.</string>
+    <string name="msg_no_sim">Aucune carte SIM disponible : l\'envoi de SMS est impossible.</string>
+    <string name="msg_ping_ok">Connexion au serveur confirmée.</string>
+    <string name="msg_registered">Téléphone enregistré avec succès.</string>
+    <string name="msg_saved">Réglages enregistrés.</string>
+    <string name="msg_settings_saved">Réglages enregistrés.</string>
+    <string name="msg_token_erased">Jeton effacé. Le téléphone sera à nouveau enregistré.</string>
+    <string name="mtrl_badge_numberless_content_description">Nouvelle notification</string>
+    <string name="mtrl_checkbox_state_description_checked">Cochée</string>
+    <string name="mtrl_checkbox_state_description_indeterminate">Partiellement cochée</string>
+    <string name="mtrl_checkbox_state_description_unchecked">Non cochée</string>
+    <string name="mtrl_chip_close_icon_content_description">Supprimer %1$s</string>
+    <string name="mtrl_exceed_max_badge_number_content_description" ns2:ignore="PluralsCandidate">Plus de %1$d nouvelles notifications</string>
+    <string name="mtrl_picker_a11y_next_month">Passer au mois suivant</string>
+    <string name="mtrl_picker_a11y_prev_month">Passer au mois précédent</string>
+    <string name="mtrl_picker_announce_current_range_selection">Date de début sélectionnée : %1$s – Date de fin sélectionnée : %2$s</string>
+    <string name="mtrl_picker_announce_current_selection">Sélection actuelle : %1$s</string>
+    <string name="mtrl_picker_announce_current_selection_none">aucune</string>
+    <string name="mtrl_picker_cancel">Annuler</string>
+    <string name="mtrl_picker_confirm">OK</string>
+    <string name="mtrl_picker_date_header_selected">%1$s</string>
+    <string name="mtrl_picker_date_header_title">Sélectionnez une date</string>
+    <string name="mtrl_picker_date_header_unselected">Date sélectionnée</string>
+    <string name="mtrl_picker_day_of_week_column_header">%1$s</string>
+    <string name="mtrl_picker_end_date_description">Date de fin : %1$s</string>
+    <string name="mtrl_picker_invalid_format">Format incorrect.</string>
+    <string name="mtrl_picker_invalid_format_example">Exemple : %1$s</string>
+    <string name="mtrl_picker_invalid_format_use">Utiliser %1$s</string>
+    <string name="mtrl_picker_invalid_range">Plage non valide.</string>
+    <string name="mtrl_picker_navigate_to_current_year_description">Accéder à l\'année en cours : %1$d</string>
+    <string name="mtrl_picker_navigate_to_year_description">Accéder à l\'année %1$d</string>
+    <string name="mtrl_picker_out_of_range">Hors limite : %1$s</string>
+    <string name="mtrl_picker_range_header_only_end_selected">Date de début – %1$s</string>
+    <string name="mtrl_picker_range_header_only_start_selected">%1$s – Date de fin</string>
+    <string name="mtrl_picker_range_header_selected">%1$s - %2$s</string>
+    <string name="mtrl_picker_range_header_title">Sélectionnez une période</string>
+    <string name="mtrl_picker_range_header_unselected">Date de début – Date de fin</string>
+    <string name="mtrl_picker_save">Enregistrer</string>
+    <string name="mtrl_picker_start_date_description">Date de début : %1$s</string>
+    <string name="mtrl_picker_text_input_date_hint">Date</string>
+    <string name="mtrl_picker_text_input_date_range_end_hint">Date de fin</string>
+    <string name="mtrl_picker_text_input_date_range_start_hint">Date de début</string>
+    <string name="mtrl_picker_text_input_day_abbr">j</string>
+    <string name="mtrl_picker_text_input_month_abbr">m</string>
+    <string name="mtrl_picker_text_input_year_abbr">a</string>
+    <string name="mtrl_picker_today_description">Aujourd\'hui : %1$s</string>
+    <string name="mtrl_picker_toggle_to_calendar_input_mode">Passer au mode de saisie Agenda</string>
+    <string name="mtrl_picker_toggle_to_day_selection">Appuyer pour passer à la vue \"Agenda\"</string>
+    <string name="mtrl_picker_toggle_to_text_input_mode">Passer au mode de saisie Texte</string>
+    <string name="mtrl_picker_toggle_to_year_selection">Appuyer pour passer à la vue \"Année\"</string>
+    <string name="mtrl_timepicker_cancel">Annuler</string>
+    <string name="mtrl_timepicker_confirm">OK</string>
+    <string name="notif_channel_alert">Alertes de la passerelle</string>
+    <string name="notif_channel_alert_desc">Avertissements d\'erreur et notifications d\'envoi.</string>
+    <string name="notif_channel_status">État de la passerelle</string>
+    <string name="notif_channel_status_desc">Notification permanente indiquant l\'état de la vérification.</string>
+    <string name="notif_failed">Échec de l\'envoi du SMS : %1$s</string>
+    <string name="notif_sent">SMS envoyé au %1$s</string>
+    <string name="notif_text_error">Erreur : %1$s</string>
+    <string name="notif_text_polling">Vérification du serveur…</string>
+    <string name="notif_text_ready">En attente de nouveaux messages</string>
+    <string name="notif_title">Passerelle SMS active</string>
+    <string name="password_toggle_content_description">Afficher le mot de passe</string>
+    <string name="perm_battery_body">Excluez cette application de l\'optimisation de la batterie afin que le service ne soit jamais suspendu.</string>
+    <string name="perm_battery_open">Ouvrir les réglages</string>
+    <string name="perm_battery_title">Optimisation de la batterie</string>
+    <string name="perm_grant">Autoriser</string>
+    <string name="perm_phone_body">L\'application doit lire les informations des cartes SIM pour les afficher dans le sélecteur et vous laisser choisir par laquelle envoyer. Sans cette autorisation, elle continue d\'utiliser la carte SIM par défaut du système.</string>
+    <string name="perm_phone_title">Choisir la carte SIM</string>
+    <string name="perm_required_body">L\'application a besoin d\'une autorisation pour envoyer des SMS et pour afficher la notification permanente du service.</string>
+    <string name="perm_required_title">Autorisations requises</string>
+    <string name="perm_sms_blocked_body">Sur cette version d\'Android, le système n\'autorise l\'envoi de SMS que depuis l\'application de messagerie par défaut ou une autre application de messagerie. Ouvrez les réglages et choisissez SMSAPI Gateway comme application SMS par défaut.</string>
+    <string name="perm_sms_blocked_open">Ouvrir les réglages</string>
+    <string name="perm_sms_blocked_title">Envoi de SMS bloqué par le système</string>
+    <string msgid="6264217191555673260" name="search_menu_title">"Rechercher"</string>
+    <string name="searchview_clear_text_content_description">Effacer le texte</string>
+    <string name="searchview_navigation_content_description">Retour</string>
+    <string name="setup_subtitle">Renseignez les informations de votre serveur. La clé de l\'API a été définie lors de l\'installation du site.</string>
+    <string name="setup_title">Configuration initiale</string>
+    <string name="side_sheet_accessibility_pane_title">Feuille latérale</string>
+    <string name="sim_auto">Automatique (par défaut du système)</string>
+    <string name="sim_locked">Sélection de SIM indisponible</string>
+    <string name="sim_none">Aucune carte SIM active</string>
+    <string name="sim_permission_needed">Autorisez la lecture de l\'état du téléphone pour choisir la carte SIM</string>
+    <string name="state_disabled">Arrêté</string>
+    <string name="state_error">Erreur</string>
+    <string name="state_idle">En attente</string>
+    <string name="state_ok">En ligne</string>
+    <string name="state_polling">Vérification…</string>
+    <string name="state_sending">Envoi…</string>
+    <string name="state_starting">Démarrage…</string>
+    <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
+    <string name="status_title">État de la passerelle</string>
+    <string name="value_none">—</string>
+    <string name="warn_insecure_url">Attention : l\'adresse utilise http:// sans TLS. Les clés et les SMS circulent sans chiffrement. Acceptable uniquement sur un réseau local ou derrière un proxy HTTPS.</string>
+</resources>

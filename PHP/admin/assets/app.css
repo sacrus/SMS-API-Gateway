@@ -1,0 +1,478 @@
+:root {
+    --bg: #0f1720;
+    --panel: #172231;
+    --panel-2: #1e2c3e;
+    --line: #2a3b52;
+    --text: #e6edf5;
+    --muted: #93a4b8;
+    --brand: #14b8a6;
+    --brand-dark: #0d9488;
+    --ok: #34d399;
+    --warn: #fbbf24;
+    --bad: #f87171;
+    --radius: 12px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font: 15px/1.55 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+
+body.centered {
+    min-height: 100vh;
+    display: flex;
+
+    /* Em coluna: a caixa de login e a linha de créditos empilham-se. Em linha,
+       as duas ficavam lado a lado e a caixa saía do centro. */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+/* Nestas páginas o rodapé alinha com a largura da caixa, para não ficar uma
+   linha muito mais larga do que o formulário. */
+body.centered .site-foot {
+    width: 100%;
+    max-width: 380px;
+}
+
+a { color: var(--brand); text-decoration: none; }
+a:hover { text-decoration: underline; }
+code { font-family: ui-monospace, "SF Mono", Consolas, monospace; font-size: 13px; }
+code.block {
+    display: block;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin: 4px 0 14px;
+    word-break: break-all;
+}
+code.secret { letter-spacing: .04em; }
+code.secret.hidden-secret { filter: blur(5px); }
+
+/* Chave de API recem-criada. Precisa de ser facil de copiar e impossivel de
+   ler por cima do ombro. */
+code.key-reveal {
+    display: block;
+    background: var(--bg);
+    border: 1px solid var(--brand-dark);
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin: 8px 0;
+    font-size: 15px;
+    letter-spacing: .02em;
+    word-break: break-all;
+    user-select: all;
+    color: var(--brand);
+}
+
+/* ---------------------------------------------------------------- topbar */
+/* Atribuição de créditos do serviço de tradução. O Google exige que o uso do
+   serviço fique visível, mas o widget dele traz o logótipo colado ao selector.
+   Fica uma linha discreta no rodapé, como em qualquer site que use tradução
+   automática. */
+.site-foot {
+    margin: 26px auto 0;
+    max-width: 720px;
+    padding: 14px 0 4px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 12px;
+    text-align: center;
+}
+.topbar {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 12px 22px;
+    background: var(--panel);
+    border-bottom: 1px solid var(--line);
+    flex-wrap: wrap;
+}
+.topbar .brand { font-weight: 700; letter-spacing: .02em; }
+.topbar .brand span { color: var(--brand); }
+.topbar nav { display: flex; gap: 4px; }
+.topbar nav a {
+    padding: 6px 12px;
+    border-radius: 8px;
+    color: var(--muted);
+}
+.topbar nav a:hover { background: var(--panel-2); color: var(--text); text-decoration: none; }
+.topbar nav a.active { background: var(--brand-dark); color: #04211d; font-weight: 600; }
+.spacer { flex: 1; }
+
+.wrap { max-width: 1180px; margin: 0 auto; padding: 24px 20px 60px; }
+
+/* ----------------------------------------------------------------- cards */
+.card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+.card.login { width: 100%; max-width: 380px; }
+.card.login .login-top { margin-bottom: 6px; }
+
+/* O selector de idioma fica abaixo do botao "Entrar", centrado e com
+   separacao. Antes estava em posicao absoluta sobre o titulo e sobrepunha-o. */
+.card.login .smsapi-t-slot {
+    display: flex;
+    justify-content: center;
+    margin: 16px 0 0;
+}
+.card h1 { margin: 0; font-size: 22px; }
+.card h2 { margin: 0 0 6px; font-size: 17px; }
+.card h2 .badge {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--muted);
+    margin-left: 6px;
+}
+
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 20px; }
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+}
+.stat {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--muted);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+}
+.stat.ok { border-left-color: var(--ok); }
+.stat.bad { border-left-color: var(--bad); }
+.stat .label { display: block; font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+.stat .value { display: block; font-size: 26px; font-weight: 700; margin-top: 4px; }
+.stat .sub { display: block; font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+label.checkline {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin: 10px 0 4px;
+    color: var(--text);
+    font-size: 13px;
+    line-height: 1.45;
+}
+label.checkline input { margin-top: 2px; flex: none; }
+label.checkline code { background: var(--bg); padding: 0 3px; border-radius: 3px; }
+
+.hint.bad { color: var(--bad); font-weight: 600; }
+.hint.warn { color: var(--warn); }
+
+/* ----------------------------------------------------------------- forms */
+label { display: block; margin: 14px 0 5px; font-size: 13px; color: var(--muted); }
+input[type=text], input[type=password], input[type=number], textarea, select {
+    width: 100%;
+    padding: 10px 12px;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    color: var(--text);
+    font: inherit;
+}
+textarea { resize: vertical; }
+input:focus, textarea:focus, select:focus { outline: 2px solid var(--brand-dark); outline-offset: 0; }
+
+button, .btn {
+    display: inline-block;
+    padding: 10px 16px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--panel-2);
+    color: var(--text);
+    font: inherit;
+    cursor: pointer;
+    text-decoration: none;
+}
+button:hover, .btn:hover { border-color: var(--brand-dark); text-decoration: none; }
+button.primary { background: var(--brand); border-color: var(--brand); color: #04211d; font-weight: 600; }
+button.primary:hover { background: var(--brand-dark); color: #04211d; }
+button.danger { color: var(--bad); border-color: #5b2b2b; }
+button.small { padding: 5px 10px; font-size: 12px; }
+button.block { width: 100%; margin-top: 18px; }
+
+.choice {
+    display: block;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 14px;
+    margin: 10px 0;
+    cursor: pointer;
+}
+.choice:has(input:checked) { border-color: var(--brand); background: #10262c; }
+.choice input { margin-right: 8px; }
+.choice strong { display: inline; }
+.choice .hint { display: block; margin: 6px 0 0 24px; }
+
+/* ---------------------------------------------------------------- tables */
+table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 14px; }
+th {
+    text-align: left;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    color: var(--muted);
+    border-bottom: 1px solid var(--line);
+    padding: 8px;
+}
+td { padding: 8px; border-bottom: 1px solid rgba(42, 59, 82, .5); vertical-align: top; }
+tr.row-bad td { background: rgba(248, 113, 113, .07); }
+td.msg { max-width: 320px; }
+td.actions { white-space: nowrap; text-align: right; }
+form.inline { display: inline; }
+
+.pill {
+    display: inline-block;
+    padding: 2px 9px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+    background: var(--panel-2);
+    color: var(--muted);
+}
+.pill.sent { background: rgba(52, 211, 153, .16); color: var(--ok); }
+.pill.pending { background: rgba(251, 191, 36, .16); color: var(--warn); }
+.pill.processing { background: rgba(56, 189, 248, .16); color: #38bdf8; }
+.pill.failed { background: rgba(248, 113, 113, .16); color: var(--bad); }
+
+/* --------------------------------------------------------------- utility */
+.muted { color: var(--muted); font-size: 13px; }
+.hint { color: var(--muted); font-size: 12px; margin: 5px 0 0; }
+.alert { padding: 11px 14px; border-radius: 9px; margin: 0 0 16px; font-size: 14px; }
+.alert.ok { background: rgba(52, 211, 153, .12); border: 1px solid rgba(52, 211, 153, .35); }
+.alert.warn { background: rgba(251, 191, 36, .12); border: 1px solid rgba(251, 191, 36, .35); }
+.alert.error { background: rgba(248, 113, 113, .12); border: 1px solid rgba(248, 113, 113, .35); }
+.checklist { margin: 6px 0 0; padding-left: 18px; color: var(--muted); font-size: 13px; }
+.checklist li { margin: 4px 0; }
+hr { border: none; border-top: 1px solid var(--line); margin: 22px 0; }
+
+.steps { display: flex; gap: 8px; margin-bottom: 22px; flex-wrap: wrap; }
+.steps div {
+    flex: 1;
+    min-width: 110px;
+    padding: 9px 12px;
+    border-radius: 8px;
+    background: var(--panel-2);
+    color: var(--muted);
+    font-size: 12px;
+}
+.steps div.done { background: rgba(52, 211, 153, .14); color: var(--ok); }
+.steps div.current { background: var(--brand-dark); color: #04211d; font-weight: 700; }
+
+/* Cabecalho do instalador: o selector de idioma fica a direita do titulo. */
+.install-top {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 4px;
+}
+
+.install-top > div:first-child { flex: 1; min-width: 0; }
+
+@media (max-width: 620px) {
+    td.actions { text-align: left; }
+    .wrap { padding: 16px 12px 40px; }
+}
+
+/* ============================================================
+   Traducao automatica (Google Translate)
+   ============================================================ */
+.smsapi-t-slot {
+    display: flex;
+    align-items: center;
+    flex: none;
+    margin-left: auto;
+}
+
+.smsapi-t {
+    position: relative;
+    display: inline-flex;
+}
+
+.smsapi-t-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: var(--panel-2);
+    color: var(--text);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 7px 30px 7px 11px;
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+    min-width: 128px;
+    transition: border-color 0.2s;
+}
+
+.smsapi-t-select:hover { border-color: var(--brand-dark); }
+.smsapi-t-select:focus { outline: 2px solid var(--brand-dark); outline-offset: 0; }
+
+.smsapi-t-select option {
+    background-color: var(--panel);
+    color: var(--text);
+}
+
+/* Seta desenhada em CSS: acompanha o tema sem ficheiros de imagem. */
+.smsapi-t::after {
+    content: '';
+    position: absolute;
+    right: 11px;
+    top: 50%;
+    width: 6px;
+    height: 6px;
+    margin-top: -4px;
+    border-right: 2px solid var(--muted);
+    border-bottom: 2px solid var(--muted);
+    transform: rotate(45deg);
+    pointer-events: none;
+}
+
+.smsapi-t:focus-within::after { border-color: var(--brand); }
+
+/* O contentor do Google fica VISIVEL de proposito. Escondido com display:none,
+   o Google nao inicializa o widget dentro dele: o <select> nunca e construido e
+   o selector de idioma simplesmente nao existe. O que se estiliza e o widget,
+   para parecer um campo nativo do painel escuro. */
+#google_translate_element {
+    display: inline-flex;
+    align-items: center;
+    margin: 0;
+}
+
+/* Variante com <select> (a que usamos). */
+#google_translate_element select.goog-te-combo {
+    background: var(--panel-2) !important;
+    color: var(--text) !important;
+    border: 1px solid var(--line) !important;
+    border-radius: 10px !important;
+    font-family: inherit !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    min-width: 132px;
+    height: 38px;
+
+    /* O Google dá 4px de margem ao selector. Como o holder não tem nem
+       margem nem enchimento, essa margem colapsa para fora dele e o invólucro
+       ficava 8px mais alto que o selector, deixando um espaço por baixo. */
+    margin: 0 !important;
+    padding: 0 10px !important;
+    cursor: pointer;
+    opacity: 1 !important;
+}
+
+#google_translate_element select.goog-te-combo:hover {
+    border-color: var(--brand-dark) !important;
+}
+
+#google_translate_element select.goog-te-combo:focus {
+    outline: 2px solid var(--brand);
+    outline-offset: 1px;
+}
+
+#google_translate_element select.goog-te-combo option {
+    background: var(--panel-2);
+    color: var(--text);
+}
+
+/* O widget do Google cria, dentro do contentor, esta estrutura real:
+
+     div#google_translate_element
+       └ div.skiptranslate.goog-te-gadget
+           ├ div (sem classe nem id) > select.goog-te-combo   <- o selector
+           └ span > a > img                                   <- barra branca
+
+   O invólucro TEM de ficar visivel. O div que segura o select nao tem classe
+   nenhuma, por isso nao se escolhe pelo nome: o JavaScript marca-o com
+   .smsapi-t-holder. Esconder o invólucro ou esse div leva o selector com ele e
+   a dropdown desaparece. */
+#google_translate_element .goog-te-gadget {
+    display: block !important;
+    visibility: visible !important;
+
+    /* O Google deixa a atribuição como NÓ DE TEXTO CRU dentro do invólucro
+       ("Tecnologia do", seguido do <span> do logótipo). Não há selector que
+       apanhe um nó de texto, e esconder só o <span> deixava a palavra
+       pendurada por baixo do selector de idioma.
+       A zero é a única forma de a apagar por CSS. O selector restaura o
+       tamanho logo abaixo. */
+    font-size: 0 !important;
+    line-height: 0 !important;
+}
+
+#google_translate_element .goog-te-gadget > .smsapi-t-holder,
+#google_translate_element .smsapi-t-holder > select.goog-te-combo {
+    display: block !important;
+    visibility: visible !important;
+    font-size: 13px;
+    line-height: normal;
+}
+
+/* Tudo o que dentro do gadget nao seja o holder do selector: desaparece. */
+#google_translate_element .goog-te-gadget > *:not(.smsapi-t-holder),
+#google_translate_element .smsapi-t-holder > *:not(select.goog-te-combo),
+#google_translate_element span,
+#google_translate_element iframe {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+/* O Google injeta no topo do <body> um div.skiptranslate com um iframe dentro:
+   e a barra branca que tapava o menu. O nosso contentor vive dentro do slot,
+   nunca como filho directo do body, por isso esta regra nao o apanha. */
+body > .skiptranslate {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+/* ------------------------------------------------------------------------
+   Limpeza da interface do Google Translate.
+   A barra de aviso do topo, os tooltips e o deslocamento que o Google aplica
+   ao <body> hides o painel e impedem que se leia normalmente.
+   Em CSS, e nao com um MutationObserver a observar cada alteracao de estilo
+   da pagina — que era o que tornava a pagina lenta.
+   ---------------------------------------------------------------------- */
+iframe.goog-te-banner-frame,
+.goog-te-banner-frame,
+.goog-te-banner-frame.skiptranslate,
+iframe[class*="goog-te-banner-frame"],
+.goog-te-banner,
+.goog-te-gadget-image,
+#goog-gt-tt,
+.goog-te-balloon-frame,
+.goog-tooltip,
+.goog-tooltip:hover {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+/* Realce do texto traduzido: sem fundo, senao fica amarelado. */
+.goog-text-highlight {
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+/* O Google desloca o body para esconder a barra; anulamos uma vez so. */
+body, html {
+    top: 0 !important;
+    margin-top: 0 !important;
+}
+
+@media (max-width: 620px) {
+    .smsapi-t-select { min-width: 0; width: 100%; font-size: 12px; }
+}

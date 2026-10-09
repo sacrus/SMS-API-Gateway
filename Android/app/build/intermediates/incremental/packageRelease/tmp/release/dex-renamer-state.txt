@@ -1,0 +1,4 @@
+#Fri Oct 09 13:56:40 WEST 2026
+base.0=C\:\\Projetos\\Android\\SMSAPI\\android\\app\\build\\intermediates\\dex\\release\\minifyReleaseWithR8\\classes.dex
+renamed.0=classes.dex
+path.0=classes.dex

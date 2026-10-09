@@ -1,0 +1,58 @@
+[
+    {
+        "merged": "pt.smsapi.gateway.app-debug-4:/drawable_ic_chevron_down.xml.flat",
+        "source": "pt.smsapi.gateway.app-main-6:/drawable/ic_chevron_down.xml"
+    },
+    {
+        "merged": "pt.smsapi.gateway.app-debug-4:/xml_data_extraction_rules.xml.flat",
+        "source": "pt.smsapi.gateway.app-main-6:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "pt.smsapi.gateway.app-debug-4:/drawable_ic_notification.xml.flat",
+        "source": "pt.smsapi.gateway.app-main-6:/drawable/ic_notification.xml"
+    },
+    {
+        "merged": "pt.smsapi.gateway.app-debug-4:/mipmap_ic_launcher.xml.flat",
+        "source": "pt.smsapi.gateway.app-main-6:/mipmap/ic_launcher.xml"
+    },
+    {
+        "merged": "pt.smsapi.gateway.app-debug-4:/xml_backup_rules.xml.flat",
+        "source": "pt.smsapi.gateway.app-main-6:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "pt.smsapi.gateway.app-debug-4:/drawable_bg_badge.xml.flat",
+        "source": "pt.smsapi.gateway.app-main-6:/drawable/bg_badge.xml"
+    },
+    {
+        "merged": "pt.smsapi.gateway.app-debug-4:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "pt.smsapi.gateway.app-main-6:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "pt.smsapi.gateway.app-debug-4:/layout_activity_main.xml.flat",
+        "source": "pt.smsapi.gateway.app-main-6:/layout/activity_main.xml"
+    },
+    {
+        "merged": "pt.smsapi.gateway.app-debug-4:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "pt.smsapi.gateway.app-main-6:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "pt.smsapi.gateway.app-debug-4:/xml_locales_config.xml.flat",
+        "source": "pt.smsapi.gateway.app-main-6:/xml/locales_config.xml"
+    },
+    {
+        "merged": "pt.smsapi.gateway.app-debug-4:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "pt.smsapi.gateway.app-main-6:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "pt.smsapi.gateway.app-debug-4:/layout_item_log.xml.flat",
+        "source": "pt.smsapi.gateway.app-main-6:/layout/item_log.xml"
+    },
+    {
+        "merged": "pt.smsapi.gateway.app-debug-4:/mipmap_ic_launcher_round.xml.flat",
+        "source": "pt.smsapi.gateway.app-main-6:/mipmap/ic_launcher_round.xml"
+    },
+    {
+        "merged": "pt.smsapi.gateway.app-debug-4:/drawable_ic_chevron_right.xml.flat",
+        "source": "pt.smsapi.gateway.app-main-6:/drawable/ic_chevron_right.xml"
+    }
+]
