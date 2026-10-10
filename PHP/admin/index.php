@@ -171,6 +171,7 @@ $apiBaseUrl = rtrim((string) (App::config()['public_base_url'] ?? ''), '/') . '/
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SMSAPI Gateway · <?= Admin::e($tab) ?></title>
 <?= SmsApi\Translate::overrideMeta() ?>
+<?= SmsApi\Branding::favicon(1) ?>
 <link rel="stylesheet" href="assets/app.css">
 </head>
 <body>

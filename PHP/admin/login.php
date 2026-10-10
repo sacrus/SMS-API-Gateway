@@ -79,6 +79,7 @@ try {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Entrar · SMSAPI Gateway</title>
 <?= Translate::overrideMeta() ?>
+<?= SmsApi\Branding::favicon(1) ?>
 <link rel="stylesheet" href="assets/app.css">
 </head>
 <body class="centered">

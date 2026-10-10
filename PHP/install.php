@@ -76,6 +76,7 @@ function esc_html_and_block(): never
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Instalado · SMSAPI Gateway</title>
+<?= SmsApi\Branding::favicon(0) ?>
 <link rel="stylesheet" href="admin/assets/app.css">
 </head>
 <body class="centered">
@@ -269,6 +270,7 @@ $dbDraft = $data['db'] ?? [];
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Instalar · SMSAPI Gateway</title>
+<?= SmsApi\Branding::favicon(0) ?>
 <link rel="stylesheet" href="admin/assets/app.css">
 </head>
 <body>

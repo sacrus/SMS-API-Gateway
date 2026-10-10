@@ -23,6 +23,7 @@ $configQuebrado = str_contains($detalhe, 'config.php');
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Erro · SMSAPI Gateway</title>
 <?= Translate::overrideMeta() ?>
+<?= SmsApi\Branding::favicon(2) ?>
 <link rel="stylesheet" href="assets/app.css">
 </head>
 <body class="centered">
