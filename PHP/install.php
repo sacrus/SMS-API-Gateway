@@ -104,6 +104,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = post('action');
 
     try {
+        // A pasta de dados so e testavel depois de a base estar escolhida.
+        if ($action === 'db' || ($action ?? '') === 'admin') {
+            $probeDir = Installer::storageExposed(__DIR__, (array) ($data['db'] ?? []), detect_base_url());
+            $dbExposta = (bool) ($probeDir['exposed'] ?? false);
+            $dbProbeUrl = (string) ($probeDir['url'] ?? '');
+        } else {
+            $dbExposta = (bool) ($data['db_exposta'] ?? false);
+            $dbProbeUrl = (string) ($data['db_probe_url'] ?? '');
+        }
+
         switch ($action) {
             case 'skip':
                 if ($blockers !== []) {
@@ -123,6 +133,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ]);
                 Installer::testDatabase($dbConfig);
                 $data['db'] = $dbConfig;
+
+                // A base ainda está vazia neste ponto: o ficheiro acabou de ser
+                // criado e ainda não tem palavras-passe nem chave da API. Se
+                // mesmo assim estiver acessível, avisa-se mas deixa-se
+                // terminar — o painel volta a avisar assim que houver dados.
+                $probeDir = Installer::storageExposed(__DIR__, $dbConfig, detect_base_url());
+                $data['db_exposta'] = (bool) ($probeDir['exposed'] ?? false);
+                $data['db_probe_url'] = (string) ($probeDir['url'] ?? '');
+                $data['db_probe_note'] = (string) ($probeDir['note'] ?? '');
+
                 $data['step'] = 3;
                 break;
 
@@ -138,6 +158,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $data['admin_user'] = $admin['user'];
                 $data['admin_hash'] = $admin['hash'];
                 $data['timezone'] = post('timezone', 'Europe/Lisbon');
+
+                // Contactos do administrador. São opcionais, mas sem eles não há
+                // forma de recuperar o acesso se a palavra-passe for perdida.
+                // Validam-se já aqui para o erro aparecer no instalador e não
+                // mais tarde, no painel.
+                $data['admin_email'] = SmsApi\Users::normalizeEmail(post('admin_email'));
+                $data['admin_phone'] = SmsApi\Users::normalizePhone(post('admin_phone'));
+
+                $data['mail_transport'] = post('mail_transport');
+                if (!in_array($data['mail_transport'], ['smtp', 'tls', 'sendmail'], true)) {
+                    $data['mail_transport'] = '';
+                }
+                if ($data['mail_transport'] !== '') {
+                    $data['smtp_host'] = post('smtp_host');
+                    if (in_array($data['mail_transport'], ['smtp', 'tls'], true) && $data['smtp_host'] === '') {
+                        throw new SmsApi\ApiException('smtp_host', 'Indique o servidor SMTP, ou escolha o transporte sendmail.', 400);
+                    }
+                    $data['smtp_port'] = (string) max(1, min(65535, (int) post('smtp_port', '587')));
+                    $data['smtp_username'] = post('smtp_username');
+                    $data['smtp_password'] = (string) ($_POST['smtp_password'] ?? '');
+                    $data['smtp_encryption'] = post('smtp_encryption') === 'none' ? 'none' : 'tls';
+                    $data['mail_from_email'] = SmsApi\Users::normalizeEmail(post('mail_from_email'));
+                    $data['mail_from_name'] = post('mail_from_name', 'SMSAPI Gateway');
+                }
+
                 $data['step'] = 4;
                 break;
 
@@ -161,7 +206,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     (string) ($data['timezone'] ?? 'Europe/Lisbon')
                 );
                 Installer::write($config);
+
+                // As definições de email dadas no passo do administrador vão
+                // para o config. Vêm a seguir a buildConfig() para não perder
+                // os valores por omissão que lá estão definidos.
+                if (($data['mail_transport'] ?? '') !== '') {
+                    foreach ([
+                        'mail_transport', 'smtp_host', 'smtp_port', 'smtp_username',
+                        'smtp_password', 'smtp_encryption', 'mail_from_email',
+                        'mail_from_name',
+                    ] as $campo) {
+                        $config['settings'][$campo] = (string) ($data[$campo] ?? '');
+                    }
+                    Installer::write($config);
+                }
+
                 Installer::testDatabase($config['db']);
+
+                // A primeira conta entra na tabela admin_users, com os contactos
+                // que o senhor deu aqui. O config.php fica só com a conta base,
+                // para uma instalação antiga continuar a funcionar.
+                if (($data['admin_email'] ?? '') !== '' || ($data['admin_phone'] ?? '') !== '') {
+                    $dbInst = SmsApi\Database::open($config['db']);
+                    $dbInst->migrate();
+                    (new SmsApi\Users($dbInst))->createFromHash(
+                        (string) $data['admin_user'],
+                        (string) $data['admin_hash'],
+                        (string) ($data['admin_email'] ?? ''),
+                        (string) ($data['admin_phone'] ?? '')
+                    );
+                }
 
                 $data['installed_config'] = $config;
                 unset($data['admin_hash']);
@@ -269,6 +343,14 @@ $dbDraft = $data['db'] ?? [];
             </label>
             <label for="sqlite_path">Caminho do ficheiro SQLite</label>
             <input type="text" id="sqlite_path" name="sqlite_path" value="<?= esc_html($dbDraft['sqlite_path'] ?? (__DIR__ . '/storage/database.sqlite')) ?>">
+            <p class="hint">
+                Pode apontar para fora da pasta servida pela web. É a forma mais
+                segura quando não tem acesso à configuração do Apache: um ficheiro
+                fora do <code>public_html</code> (ou <code>www</code>) não é
+                servido, qualquer que seja a configuração. Exemplo em cPanel:
+                <code>/home/SEU_USER/smsapi-data/database.sqlite</code>.
+                O painel avisa se o caminho escolhido ainda estiver dentro da pasta web.
+            </p>
 
             <label class="choice">
                 <input type="radio" name="driver" value="mysql" <?= (($dbDraft['driver'] ?? '') === 'mysql') ? 'checked' : '' ?>>
@@ -309,6 +391,33 @@ $dbDraft = $data['db'] ?? [];
             <h2>Conta de administrador</h2>
             <p class="muted">Única conta com acesso ao painel. Não confundir com a chave da API.</p>
 
+            <?php if (!empty($data['db_exposta'])): ?>
+                <div class="alert warn">
+                    <strong>A pasta <code>storage/</code> parece acessível pela web.</strong>
+                    A partir de agora a base de dados guarda a hash da sua palavra-passe,
+                    a chave mestra da API e os números de telefone. Termine a instalação e
+                    bloqueie a pasta no servidor antes de usar o sistema.<br>
+                    <?= esc_html((string) ($data['db_probe_note'] ?? '')) ?><br>
+
+                    <strong>Solução que não depende do servidor:</strong> mover o
+                    ficheiro para fora da pasta web. Se não tem acesso à configuração
+                    do Apache, esta é a via. Escolha em «Caminho do ficheiro SQLite»
+                    um sítio fora do <code>public_html</code>, por exemplo
+                    <code>/home/SEU_USER/smsapi-data/database.sqlite</code>, e
+                    reinstale. O painel deixa de avisar assim que o ficheiro estiver lá.<br>
+
+                    <?php if (!empty($data['db_probe_url'])): ?>
+                        Endereço a bloquear, se preferir resolver pelo servidor:
+                        <code><?= esc_html((string) $data['db_probe_url']) ?></code><br>
+                    <?php endif; ?>
+                    <strong>Nginx:</strong> <code>location ~* ^/storage/ { deny all; }</code><br>
+                    <strong>Apache:</strong> confirmar <code>AllowOverride All</code> no virtual host.<br>
+                    Não o resolve o <code>chmod 700</code> na pasta: as permissões de
+                    ficheiro aplicam-se a quem acede pelo sistema operativo, e o
+                    servidor web serve o ficheiro com o seu próprio utilizador.
+                </div>
+            <?php endif; ?>
+
             <label for="admin_user">Utilizador</label>
             <input type="text" id="admin_user" name="admin_user" value="<?= esc_html($data['admin_user'] ?? 'admin') ?>" required>
 
@@ -317,6 +426,74 @@ $dbDraft = $data['db'] ?? [];
 
             <label for="admin_pass2">Confirmar palavra-passe</label>
             <input type="password" id="admin_pass2" name="admin_pass2" required>
+
+            <h2 style="margin-top:26px">Recuperação de acesso</h2>
+            <p class="hint">
+                Se perder a palavra-passe, o painel manda um código de 6 dígitos
+                para um destes contactos. Sem nenhum dos dois, não há como
+                recuperar o acesso sem abrir a base de dados à mão.
+            </p>
+
+            <label for="admin_email">Email</label>
+            <input type="email" id="admin_email" name="admin_email"
+                   value="<?= esc_html((string) ($data['admin_email'] ?? '')) ?>" placeholder="o.seu.email@exemplo.com">
+
+            <label for="admin_phone">Telefone</label>
+            <input type="text" id="admin_phone" name="admin_phone"
+                   value="<?= esc_html((string) ($data['admin_phone'] ?? '')) ?>" placeholder="+351912345678">
+            <p class="hint">Com formato internacional, para receber o código por SMS. Um dos dois chega.</p>
+
+            <h2 style="margin-top:26px">Email (opcional)</h2>
+            <p class="hint">
+                Para enviar emails de aviso e permitir recuperação por email.
+                Pode deixar vazio e configurar mais tarde em Definições.
+            </p>
+
+            <label for="mail_transport">Envio de email</label>
+            <select id="mail_transport" name="mail_transport">
+                <?php foreach ([
+                    '' => 'Depois, nas Definições',
+                    'smtp' => 'SMTP com STARTTLS (porta 587) — o mais comum',
+                    'tls' => 'SMTP com TLS já ligado (porta 465)',
+                    'sendmail' => 'Programa local de envio (sendmail)',
+                ] as $valor => $rotulo): ?>
+                    <option value="<?= esc_html($valor) ?>" <?= (($data['mail_transport'] ?? '') === $valor) ? 'selected' : '' ?>>
+                        <?= esc_html($rotulo) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+
+            <div class="grid-2">
+                <div>
+                    <label for="smtp_host">Servidor SMTP</label>
+                    <input type="text" id="smtp_host" name="smtp_host"
+                           value="<?= esc_html((string) ($data['smtp_host'] ?? '')) ?>" placeholder="smtp.gmail.com">
+                </div>
+                <div>
+                    <label for="smtp_port">Porta</label>
+                    <input type="number" id="smtp_port" name="smtp_port"
+                           value="<?= esc_html((string) ($data['smtp_port'] ?? '587')) ?>">
+                </div>
+                <div>
+                    <label for="smtp_username">Utilizador</label>
+                    <input type="text" id="smtp_username" name="smtp_username"
+                           value="<?= esc_html((string) ($data['smtp_username'] ?? '')) ?>">
+                </div>
+                <div>
+                    <label for="smtp_password">Palavra-passe</label>
+                    <input type="password" id="smtp_password" name="smtp_password">
+                </div>
+            </div>
+
+            <label for="mail_from_email">Email do remetente</label>
+            <input type="email" id="mail_from_email" name="mail_from_email"
+                   value="<?= esc_html((string) ($data['mail_from_email'] ?? '')) ?>">
+
+            <label for="mail_from_name">Nome do remetente</label>
+            <input type="text" id="mail_from_name" name="mail_from_name"
+                   value="<?= esc_html((string) ($data['mail_from_name'] ?? 'SMSAPI Gateway')) ?>">
+
+            <p class="hint">Depois de instalar, use "Enviar email de teste" em Definições para confirmar.</p>
 
             <label for="timezone">Fuso horário</label>
             <select id="timezone" name="timezone">

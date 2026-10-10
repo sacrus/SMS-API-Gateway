@@ -7,7 +7,10 @@ require_once __DIR__ . '/Admin.php';
 
 use SmsApi\Admin\Admin;
 use SmsApi\App;
+use SmsApi\ApiException;
 use SmsApi\Config;
+use SmsApi\MailException;
+use SmsApi\SecurityCheck;
 use SmsApi\Queue;
 
 Admin::start();
@@ -135,13 +138,133 @@ try {
             Admin::flash('Chave da API rodada. Todos os telefone foram removidos e terão de se registar de novo.');
             Admin::redirect('index.php?tab=definicoes');
 
+        // ------------------------------------------------- utilizadores
+        case 'create_user':
+            $novoId = App::ensureUsers()->create(
+                (string) ($_POST['username'] ?? ''),
+                (string) ($_POST['password'] ?? ''),
+                (string) ($_POST['email'] ?? ''),
+                (string) ($_POST['phone'] ?? ''),
+                (string) ($_POST['display_name'] ?? '')
+            );
+            Admin::flash("Conta criada. Já pode entrar no painel com as credenciais indicadas.");
+            Admin::redirect('index.php?tab=utilizadores&edit_user=' . $novoId);
+
+        case 'update_user':
+            $users = App::ensureUsers();
+            $users->update($id, [
+                'username' => (string) ($_POST['username'] ?? ''),
+                'display_name' => (string) ($_POST['display_name'] ?? ''),
+                'email' => (string) ($_POST['email'] ?? ''),
+                'phone' => (string) ($_POST['phone'] ?? ''),
+            ]);
+            $novaSenha = (string) ($_POST['password'] ?? '');
+            if ($novaSenha !== '') {
+                $users->setPassword($id, $novaSenha);
+                Admin::flash('Conta actualizada e palavra-passe alterada.');
+            } else {
+                Admin::flash('Conta actualizada.');
+            }
+            Admin::redirect('index.php?tab=utilizadores');
+
+        case 'deactivate_user':
+            App::ensureUsers()->setActive($id, false, Admin::currentUserId());
+            Admin::flash('Conta desativada. Não pode mais entrar no painel.', 'error');
+            Admin::redirect('index.php?tab=utilizadores');
+
+        case 'activate_user':
+            App::ensureUsers()->setActive($id, true, Admin::currentUserId());
+            Admin::flash('Conta ativada.');
+            Admin::redirect('index.php?tab=utilizadores');
+
+        case 'delete_user':
+            App::ensureUsers()->delete($id, Admin::currentUserId());
+            Admin::flash('Conta apagada.');
+            Admin::redirect('index.php?tab=utilizadores');
+
+        // --------------------------------------------------------- email
+        case 'mail_settings':
+            $settings = App::config()['settings'];
+            $transporte = (string) ($_POST['mail_transport'] ?? '');
+            if (!in_array($transporte, ['', 'smtp', 'tls', 'sendmail'], true)) {
+                $transporte = '';
+            }
+
+            $settings['mail_transport'] = $transporte;
+            $settings['smtp_host'] = mb_substr(trim((string) ($_POST['smtp_host'] ?? '')), 0, 190);
+            $settings['smtp_port'] = (string) max(1, min(65535, (int) ($_POST['smtp_port'] ?? 587)));
+            $settings['smtp_username'] = mb_substr(trim((string) ($_POST['smtp_username'] ?? '')), 0, 190);
+            // Campo vazio = não mexer. Senão guardar o formulário apagava a senha.
+            $senha = (string) ($_POST['smtp_password'] ?? '');
+            if ($senha !== '') {
+                $settings['smtp_password'] = $senha;
+            }
+            $settings['smtp_encryption'] = (string) ($_POST['smtp_encryption'] ?? 'tls') === 'none' ? 'none' : 'tls';
+            $settings['mail_sendmail'] = mb_substr(trim((string) ($_POST['mail_sendmail'] ?? '')), 0, 190);
+            $settings['mail_from_email'] = mb_substr(trim((string) ($_POST['mail_from_email'] ?? '')), 0, 190);
+            $settings['mail_from_name'] = mb_substr(trim((string) ($_POST['mail_from_name'] ?? 'SMSAPI Gateway')), 0, 120);
+
+            writeConfigWithSettings($settings);
+            Admin::flash('Definições de email guardadas. Use "Enviar email de teste" para confirmar que funciona.');
+            Admin::redirect('index.php?tab=email');
+
+        case 'test_mail':
+            $destino = trim((string) ($_POST['to'] ?? ''));
+            App::mailer()->send(
+                $destino,
+                'Teste do SMSAPI Gateway',
+                '<p style="font-family:Arial,Helvetica,sans-serif;font-size:15px;color:#222;">'
+                . 'Este é um email de teste do <strong>SMSAPI Gateway</strong>.</p>'
+                . '<p style="font-family:Arial,Helvetica,sans-serif;font-size:15px;color:#222;">'
+                . 'Se o senhor está a ler isto, o email está configurado e a funcionar.</p>'
+            );
+            Admin::flash('Email de teste enviado para ' . $destino . '. Verifique a pasta de spam.');
+            Admin::redirect('index.php?tab=email');
+
+// ------------------------------------------------- esconder o aviso
+        case 'security_check_dismiss':
+            // O administrador diz que já confirmou a protecção. A dispensa fica
+            // presa ao estado em que foi dada: se a situação mudar, o aviso volta.
+            try {
+                SecurityCheck::dispensar();
+                Admin::flash('Aviso escondido. Se a situação mudar, volta a aparecer.');
+            } catch (Throwable $e) {
+                Admin::flash('Não foi possível esconder o aviso: ' . $e->getMessage(), 'error');
+            }
+            Admin::redirect('index.php?tab=painel');
+
+// ------------------------------------------------- verificar seguranca
+        case 'security_check':
+            // A verificação lê a configuração em disco, por isso é instantânea e
+            // pode correr em qualquer momento. Este botão existe para o
+            // administrador confirmar depois de mexer no servidor.
+            $r = SecurityCheck::verificar();
+            Admin::flash($r['mensagem'], $r['tipo'] === 'error' ? 'error' : ($r['tipo'] === 'warn' ? 'ok' : 'ok'));
+            Admin::redirect('index.php?tab=painel');
+
         default:
             Admin::flash('Ação desconhecida.', 'error');
             Admin::redirect('index.php');
     }
+} catch (ApiException $e) {
+    // Erros previstos (nome em uso, senha curta, contacto inválido): a
+    // mensagem é para o administrador e não expõe detalhes internos.
+    Admin::flash($e->getMessage(), 'error');
+    Admin::redirect(refererTab($do));
+} catch (MailException $e) {
+    Admin::flash('Email: ' . $e->getMessage(), 'error');
+    Admin::redirect('index.php?tab=email');
 } catch (Throwable $e) {
     Admin::flash('Erro: ' . $e->getMessage(), 'error');
     Admin::redirect('index.php');
+}
+
+/** Volta ao separador certo depois de um erro, em vez de sempre ao painel. */
+function refererTab(string $do): string
+{
+    return str_starts_with($do, 'mail_') || $do === 'test_mail'
+        ? 'index.php?tab=email'
+        : 'index.php?tab=utilizadores';
 }
 
 function writeConfigWithSettings(array $settings): void

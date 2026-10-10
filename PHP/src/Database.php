@@ -304,6 +304,36 @@ final class Database
                 last_used_at BIGINT NULL,
                 last_used_ip VARCHAR(45) NULL
             ){$suffix}",
+        // Contas do painel. O config.php passa a guardar apenas a conta inicial, para
+            // que uma instalacao com um unico administrador continue a funcionar.
+            'admin_users' => "CREATE TABLE IF NOT EXISTS admin_users (
+                id {$pk},
+                username VARCHAR(60) NOT NULL,
+                password_hash VARCHAR(255) NOT NULL,
+                display_name VARCHAR(120) NOT NULL DEFAULT '',
+                email VARCHAR(190) NULL,
+                phone VARCHAR(32) NULL,
+                is_active TINYINT(1) NOT NULL DEFAULT 1,
+                failed_attempts INT NOT NULL DEFAULT 0,
+                locked_until BIGINT NULL,
+                last_login_at BIGINT NULL,
+                last_login_ip VARCHAR(45) NULL,
+                created_at BIGINT NOT NULL
+            ){$suffix}",
+
+            // Codigos de recuperacao de password. Guardado e apenas o SHA-256:
+            // nem o servidor em caso de invasao consegue voltar a usar o codigo.
+            'password_resets' => "CREATE TABLE IF NOT EXISTS password_resets (
+                id {$pk},
+                user_id BIGINT NOT NULL,
+                channel VARCHAR(10) NOT NULL,
+                code_hash VARCHAR(64) NOT NULL,
+                expires_at BIGINT NOT NULL,
+                used_at BIGINT NULL,
+                attempts INT NOT NULL DEFAULT 0,
+                created_at BIGINT NOT NULL,
+                ip VARCHAR(45) NULL
+            ){$suffix}",
         ];
 
         $indexes = [
@@ -317,6 +347,11 @@ final class Database
             // indice cada pedido faria uma varredura da tabela.
             ['api_log', 'idx_log_key', 'key_id, created_at', false],
             ['sms_queue', 'idx_queue_key', 'queue_key_id, id', false],
+            ['admin_users', 'idx_users_username', 'username', true],
+            // Cada pedido de recuperacao procura codigos por utilizador e por
+            // IP, para travar tentativas a partir de muitas origens.
+            ['password_resets', 'idx_reset_user', 'user_id, expires_at', false],
+            ['password_resets', 'idx_reset_ip', 'ip, created_at', false],
         ];
 
         foreach ($tables as $sql) {

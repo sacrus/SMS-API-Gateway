@@ -82,6 +82,18 @@ define('SMSAPI_ROOT', dirname(__DIR__));
 define('SMSAPI_VERSION', '1.0.0');
 
 mb_internal_encoding('UTF-8');
+
+/**
+ * O PHP anuncia a sua versão em todos os respostas com X-Powered-By.
+ *
+ * Não é uma falha grave, mas é dizer a quem está a tentar entrar
+ * exactamente qual a versão e, com isso, quais as falhas conhecidas dessa
+ * versão. Tira-se com uma linha; se a versão estiver escondida no php.ini
+ * (expose_php = Off) não há nada a fazer.
+ */
+if (PHP_SAPI !== 'cli' && headers_sent() === false) {
+    header_remove('X-Powered-By');
+}
 date_default_timezone_set('Europe/Lisbon');
 
 error_reporting(E_ALL);

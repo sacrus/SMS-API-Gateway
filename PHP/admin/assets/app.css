@@ -174,7 +174,11 @@ label.checkline code { background: var(--bg); padding: 0 3px; border-radius: 3px
 
 /* ----------------------------------------------------------------- forms */
 label { display: block; margin: 14px 0 5px; font-size: 13px; color: var(--muted); }
-input[type=text], input[type=password], input[type=number], textarea, select {
+/* Fica-se com "input:not(...)" em vez de uma lista de tipos: assim qualquer
+   campo novo (email, tel, url, search, date) entra na mesma regra e nao aparece
+   com o estilo por omissao do browser, que e um rectangulo branco e estreito. */
+input:not([type=checkbox]):not([type=radio]):not([type=submit]):not([type=button]):not([type=file]):not([type=hidden]),
+textarea, select {
     width: 100%;
     padding: 10px 12px;
     background: var(--bg);
@@ -183,6 +187,8 @@ input[type=text], input[type=password], input[type=number], textarea, select {
     color: var(--text);
     font: inherit;
 }
+/* Os tipos que ficam de fora acima mantem-se com o tamanho do conteudo. */
+input[type=checkbox], input[type=radio] { width: auto; }
 textarea { resize: vertical; }
 input:focus, textarea:focus, select:focus { outline: 2px solid var(--brand-dark); outline-offset: 0; }
 
@@ -197,11 +203,47 @@ button, .btn {
     cursor: pointer;
     text-decoration: none;
 }
+/* ------------------------------------------------------------- filtros do registo */
+.filtros {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px 14px;
+    align-items: end;
+    margin: 14px 0 20px;
+    padding: 14px;
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+}
+/* Os rótulos ficam por cima do campo; a grelha põe-nos uns por cima dos
+   outros sem precisar de margem a mais. */
+.filtros label { margin: 0 0 4px; font-size: 12px; }
+.filtros input, .filtros select { margin: 0; }
+.filtros-acoes {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.paginacao {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+    margin: 18px 0 0;
+}
+
 button:hover, .btn:hover { border-color: var(--brand-dark); text-decoration: none; }
 button.primary { background: var(--brand); border-color: var(--brand); color: #04211d; font-weight: 600; }
 button.primary:hover { background: var(--brand-dark); color: #04211d; }
 button.danger { color: var(--bad); border-color: #5b2b2b; }
 button.small { padding: 5px 10px; font-size: 12px; }
+/* Botão esbatido, para acções que não são o principal motivo do aviso. */
+button.link {
+    background: none; border: none; padding: 5px 8px; font-size: 12px;
+    color: #93a4b8; text-decoration: underline; cursor: pointer;
+}
+button.link:hover { color: #e6edf5; border: none; }
 button.block { width: 100%; margin-top: 18px; }
 
 .choice {

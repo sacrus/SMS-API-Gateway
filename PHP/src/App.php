@@ -15,6 +15,8 @@ final class App
     private static ?Queue $queue = null;
     private static ?Auth $auth = null;
     private static ?QueueKeys $queueKeys = null;
+    private static ?Users $users = null;
+    private static ?Mailer $mailer = null;
 
     public static function config(): array
     {
@@ -52,6 +54,30 @@ final class App
     public static function queueKeys(): QueueKeys
     {
         return self::$queueKeys ??= new QueueKeys(self::db(), self::config());
+    }
+
+    public static function users(): Users
+    {
+        return self::$users ??= new Users(self::db());
+    }
+
+    public static function mailer(): Mailer
+    {
+        return self::$mailer ??= new Mailer(self::config());
+    }
+
+    /**
+     * Cria a primeira conta a partir do config.php, se ainda não existir nenhuma.
+     *
+     * Corre a cada utilização: é o que permite a uma instalação anterior, com
+     * um único administrador no config.php, continuar a funcionar sem ser
+     * reinstalada.
+     */
+    public static function ensureUsers(): Users
+    {
+        $users = self::users();
+        $users->ensureBootstrap(self::config());
+        return $users;
     }
 
     public static function setting(string $key, mixed $default = null): mixed

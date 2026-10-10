@@ -49,34 +49,43 @@ final class Admin
 
     public static function isLoggedIn(): bool
     {
-        return !empty($_SESSION['admin_user']);
+        return !empty($_SESSION['admin_user_id']);
     }
 
     public static function requireLogin(): void
     {
         if (self::isLoggedIn()) {
-            return;
+            // A conta pode ter sido desactivada ou apagada por outro
+            // administrador enquanto esta sessão estava aberta.
+            if (App::ensureUsers()->find((int) $_SESSION['admin_user_id']) !== null) {
+                return;
+            }
+            self::logout();
         }
         self::redirect('login.php');
     }
 
-    public static function attempt(string $user, string $password): bool
+    /** A conta com que esta sessão foi iniciada. */
+    public static function currentUserId(): int
     {
-        $config = Config::load();
-        $expectedUser = (string) ($config['admin_user'] ?? '');
-        $hash = (string) ($config['admin_hash'] ?? '');
-
-        if ($expectedUser === '' || $hash === '' || $user !== $expectedUser) {
-            // Constant-ish work on both branches to avoid leaking which part failed.
-            password_verify($password, '$2y$10$usesomesillystringfor.e6zk2hZ0YQW4w5i4uWvS0lFbp1lJq0K');
-            return false;
-        }
-        return password_verify($password, $hash);
+        return (int) ($_SESSION['admin_user_id'] ?? 0);
     }
 
-    public static function login(string $user): void
+    /**
+     * Verifica as credenciais.
+     *
+     * @return array{ok:bool, reason:?string}
+     */
+    public static function attempt(string $user, string $password, string $ip = ''): array
+    {
+        $result = App::ensureUsers()->attempt($user, $password, $ip);
+        return ['ok' => $result['ok'], 'reason' => $result['reason']];
+    }
+
+    public static function login(int $userId, string $user): void
     {
         session_regenerate_id(true);
+        $_SESSION['admin_user_id'] = $userId;
         $_SESSION['admin_user'] = $user;
         $_SESSION['login_at'] = time();
         $_SESSION['csrf'] = bin2hex(random_bytes(32));
@@ -141,6 +150,26 @@ final class Admin
     public static function e(?string $value): string
     {
         return htmlspecialchars((string) $value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+    }
+
+    /**
+     * Constrói a query string da página a partir dos filtros que já estão na URL.
+     *
+     * Serve para os botões de paginação e de exportação manterem os filtros que o
+     * administrador escolheu, em vez de voltarem a mostrar tudo. Sem isto, carregar
+     * em "Seguinte" apagava o filtro e o filtro parecia não funcionar.
+     *
+     * @param array<string, scalar|null> $mudar valores a trocar ou acrescentar; null apaga
+     */
+    public static function buildQuery(array $mudar = []): string
+    {
+        $params = array_merge($_GET, $mudar);
+        $params = array_filter(
+            $params,
+            static fn ($v): bool => $v !== null && $v !== '' && $v !== false
+        );
+
+        return 'index.php?' . http_build_query($params);
     }
 
     public static function timestamp(?int $ts): string

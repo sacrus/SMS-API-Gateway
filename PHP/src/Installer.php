@@ -75,7 +75,193 @@ final class Installer
         ];
     }
 
-    /** @return list<array> only the fatal, unmet requirements */
+    /**
+     * A pasta de dados está acessível pela web?
+     *
+     * O ficheiro SQLite tem dentro os hashes das palavras-passe, a chave da
+     * API, os números de telefone e o texto das mensagens. Se alguém o
+     * conseguir descarregar, o sistema está perdido — não há nada a fazer do
+     * lado do PHP, porque quem serve o ficheiro é o servidor web, não nós.
+     *
+     * Esta verificação é feita sem rede e sem pedido ao próprio site, por duas
+     * razões. Primeiro, o PHP não sabe se o .htaccess está a ser respeitado:
+     * em Apache com AllowOverride None o ficheiro é servido na mesma, e um
+     * pedido de teste dariia uma falsa segurança. Segundo, pedir o ficheiro ao
+     * próprio servidor a partir de um pedido que ele está a atender trava o
+     * pedido até ao timeout em servidores de um só processo, e ainda dava a
+     * quem_controls o Host a escolher o endereço do pedido.
+     *
+     * Decide-se pela configuração visível: o ficheiro está dentro da pasta
+     * pública, existe um .htaccess que nega o acesso e o servidor é Apache?
+     *
+     * `exposed` true é nunca um palpite: só acontece quando se vê que o ficheiro
+     * está na pasta pública e não há nada que o negue. O caso Apache com
+     * .htaccess devolve `exposed` false mas `unconfirmed` true, porque o PHP não
+     * lê o AllowOverride e não quer dar um falso silêncio justamente onde o
+     * ficheiro costuma estar exposto.
+     *
+     * @return array{checked:bool, exposed:bool, unconfirmed:bool, url:string, note:?string}
+     */
+    public static function storageExposed(string $root, array $dbConfig, ?string $baseUrl = null): array
+    {
+        $result = [
+            'checked' => false,
+            'exposed' => false,
+            'unconfirmed' => false,
+            'url' => '',
+            'note' => null,
+        ];
+
+        if (($dbConfig['driver'] ?? '') !== 'sqlite') {
+            // Em MySQL o ficheiro não está na pasta pública.
+            return $result;
+        }
+
+        $path = (string) ($dbConfig['sqlite_path'] ?? '');
+        if ($path === '') {
+            return $result;
+        }
+
+        // O caminho pode estar guardado como relativo ao gateway. Resolve-se
+        // contra a pasta do gateway, que é como a aplicação o abre quando o
+        // servidor web executa o pedido — resolver contra o directório de
+        // trabalho daria um caminho diferente.
+        if (!self::isAbsolutePath($path)) {
+            $path = rtrim(str_replace('\\', '/', $root), '/') . '/' . ltrim(str_replace('\\', '/', $path), '/');
+        }
+
+        $real = realpath($path);
+        if ($real === false || !is_file($real)) {
+            return $result;
+        }
+        $path = $real;
+
+        $rel = self::relativeToRoot($path, $root);
+        if ($rel === null) {
+            $result['note'] = 'O ficheiro da base de dados está fora da pasta do gateway.';
+            return $result;
+        }
+
+        // O endereço só serve para mostrar ao administrador qual é o caminho
+        // perigoso. Não é pedido a ninguém: vem da configuração, nunca do exterior.
+        if ($baseUrl !== null && $baseUrl !== '') {
+            $result['url'] = rtrim($baseUrl, '/') . '/' . str_replace('\\', '/', $rel);
+        }
+
+        $pasta = dirname($path);
+        $temHtaccess = self::htaccessNegaAcesso($pasta, $root);
+        $servidor = (string) ($_SERVER['SERVER_SOFTWARE'] ?? '');
+        $apache = $servidor !== '' && preg_match('#apache#i', $servidor) === 1;
+
+        $result['checked'] = true;
+        $relLimpo = str_replace('\\', '/', $rel);
+
+        if (!$apache) {
+            // Sem Apache não há .htaccess que valha. Nginx, LiteSpeed e o
+            // servidor embutido do PHP sirve o ficheiro se o pedirem.
+            $result['exposed'] = true;
+            $result['note'] = sprintf(
+                'O ficheiro %s está dentro da pasta pública e o servidor (%s) não é Apache: '
+                . 'o .htaccess não é lido e o ficheiro fica disponível para download.',
+                $relLimpo,
+                $servidor !== '' ? $servidor : 'desconhecido'
+            );
+            return $result;
+        }
+
+        if (!$temHtaccess) {
+            $result['exposed'] = true;
+            $result['note'] = sprintf(
+                'O ficheiro %s está dentro da pasta pública e a pasta não tem .htaccess a negar o acesso.',
+                $relLimpo
+            );
+            return $result;
+        }
+
+        // O .htaccess existe, mas o PHP não tem forma de saber se o AllowOverride
+        // está ligado. Em alojamento partilhado é frequente não estar, e aí o
+        // ficheiro é servido na mesma. Não se pode chamar isto "protegido":
+        // diz-se que não se consegue confirmar, para não haver um falso silêncio
+        // justo no caso em que o ficheiro está mesmo exposto.
+        $result['exposed'] = false;
+        $result['unconfirmed'] = true;
+        $result['note'] = sprintf(
+            'O servidor é Apache e %s tem um .htaccess a negar o acesso, mas o PHP não consegue '
+            . 'ver se o AllowOverride está ligado — em alojamento partilhado muitas vezes não está. '
+            . 'Abre %s numa janela anónima: tem de dar 403 ou 404. Se der 200 e descarregar, '
+            . 'mete o ficheiro fora da pasta web.',
+            $relLimpo,
+            $result['url'] !== '' ? $result['url'] : $relLimpo
+        );
+
+        return $result;
+    }
+
+    /**
+     * A pasta tem um .htaccess que nega o acesso a quem não é o servidor?
+     *
+     * Vale tanto para o "Require all denied" do Apache 2.4 como para o
+     * "Deny from all" do 2.2, com as duas directivas de AllowOverride.
+     */
+    /**
+     * A pasta tem um .htaccess que nega o acesso a quem não é o servidor?
+     *
+     * Vale tanto para o "Require all denied" do Apache 2.4 como para o
+     * "Deny from all" do 2.2.
+     *
+     * Sobe-se até à raiz do gateway: um "Require all denied" numa pasta vale
+     * para tudo o que está dentro dela. O que não conta é o `.htaccess` da
+     * gateway, porque o deny que lá está está dentro de um <FilesMatch> e
+     * apenas abrange os ficheiros nomeados — proteger um subdirectório com ele
+     * seria dar como seguro um ficheiro que ninguém está a proteger.
+     */
+    private static function htaccessNegaAcesso(string $pasta, string $root): bool
+    {
+        $pasta = rtrim(str_replace('\\', '/', (string) realpath($pasta)), '/');
+        $root = rtrim(str_replace('\\', '/', (string) realpath($root)), '/');
+
+        if ($pasta === '' || $root === '') {
+            return false;
+        }
+
+        // Não se olha para o .htaccess da raiz do gateway: o deny que lá está está
+        // dentro de um <FilesMatch> e só abrange os ficheiros nomeados. Um
+        // ficheiro da storage/ que não esteja nessa lista não fica protegido
+        // por ele, e dar como seguro seria um falso negativo.
+        while ($pasta !== $root && str_starts_with($pasta . '/', $root . '/')) {
+            $ficheiro = $pasta . '/.htaccess';
+            if (is_file($ficheiro)) {
+                $conteudo = (string) @file_get_contents($ficheiro);
+                if (preg_match('#^\s*Require\s+all\s+denied#im', $conteudo) === 1
+                    || preg_match('#^\s*Deny\s+from\s+all#im', $conteudo) === 1) {
+                    return true;
+                }
+            }
+            $pasta = dirname($pasta);
+        }
+
+        return false;
+    }
+
+    private static function isAbsolutePath(string $path): bool
+    {
+        $path = str_replace('\\', '/', $path);
+        return str_starts_with($path, '/')
+            || (bool) preg_match('#^[A-Za-z]:/#', $path);
+    }
+
+    private static function relativeToRoot(string $path, string $root): ?string
+    {
+        $path = str_replace('\\', '/', (string) realpath($path));
+        $root = rtrim(str_replace('\\', '/', (string) realpath($root)), '/');
+
+        if ($path === '' || $root === '') {
+            return null;
+        }
+
+        return str_starts_with($path, $root . '/') ? substr($path, strlen($root) + 1) : null;
+    }
+
     public static function blockers(string $root): array
     {
         return array_values(array_filter(
@@ -208,6 +394,19 @@ final class Installer
                 'online_threshold' => 300,
                 'log_retention' => 604800,
                 'cron_url' => rtrim($baseUrl, '/') . '/cron/maintain.php',
+
+                // Email. Vazio por omissão: o gateway funciona sem email, e a
+                // recuperação de palavra-passe fica só por SMS até alguém
+                // preencher isto nas Definições.
+                'mail_transport' => '',
+                'smtp_host' => '',
+                'smtp_port' => '587',
+                'smtp_username' => '',
+                'smtp_password' => '',
+                'smtp_encryption' => 'tls',
+                'mail_from_email' => '',
+                'mail_from_name' => 'SMSAPI Gateway',
+                'mail_sendmail' => '/usr/sbin/sendmail -bs',
             ],
         ];
     }
