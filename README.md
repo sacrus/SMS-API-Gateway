@@ -4,11 +4,7 @@ SMSAPI Gateway is a self-hosted system that lets a website send SMS messages thr
 
 The website submits messages to a PHP API queue. The Android app periodically polls the server, sends the queued messages through the phone’s SIM card, and reports delivery status. An admin panel manages the queue, devices, API keys, users, and delivery history.
 
-<p align="center">
-  <video src="Screenshots/smsapi-gateway.mp4" width="720" controls>
-    Your browser does not support embedded video.
-  </video>
-</p>
+Presentation Video: https://youtu.be/B0JNSwwqKr8?si=B2Vu5cpaORhyJQ8n
 
 ## Requirements
 
